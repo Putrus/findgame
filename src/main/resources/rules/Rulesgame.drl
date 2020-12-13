@@ -1,0 +1,648 @@
+package com.sample
+ 
+import com.sample.DroolsTest.*;
+
+import javax.swing.*;
+import java.awt.Color;
+import java.awt.event.*;
+
+global JFrame frame;
+
+
+
+
+
+declare Question
+ 	contents : String
+ 	answer : String
+end
+
+
+rule "First answer"
+	when 
+	then
+		String question = "What type of game are you looking for? Do you want to hone the ultimate warrior, or build a mighty nation?";
+		String [] answers = {"SHOOTERS", "RPGS", "STRATEGY", "VIRTUAL WORLDS"};
+		Question answer = ask(frame, question, answers, 4);
+		insert(answer);
+end
+
+//shooters tree
+rule "Sh1"
+	when
+		Question(contents == "What type of game are you looking for? Do you want to hone the ultimate warrior, or build a mighty nation?" && answer == "SHOOTERS");
+	then
+		String question = "WOULD YOU RATHER\nfight on the ground or while flying through space?";
+		String [] answers = {"Flying through space", "On the ground"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+
+rule "Sh2"
+	when
+		Question(contents == "WOULD YOU RATHER\nfight on the ground or while flying through space?" && answer == "Flying through space");
+	then
+		String question = "What means more to you, enormous large scale battles,\nor the ability to take precise control of your ship's every move?";
+		String [] answers = {"Precise control", "Big battles"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "Sh3"
+	when
+		Question(contents == "What means more to you, enormous large scale battles,\nor the ability to take precise control of your ship's every move?" && answer == "Precise control");
+	then
+		recommend(frame, "BATTLESTAR GALACTICA");
+end
+
+rule "Sh4"
+	when
+		Question(contents == "WOULD YOU RATHER\nfight on the ground or while flying through space?" && answer == "On the ground");
+	then
+		String question = "Who would you ratger fight, yhe military or monsters?";
+		String [] answers = {"Monsters", "Military"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "Sh5"
+	when
+		Question(contents == "Who would you ratger fight, yhe military or monsters?" && answer == "Monsters");
+	then
+		String question = "Mummies or Werewolves?";
+		String [] answers = {"Werewolves", "Mummies"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "Sh6"
+	when
+		Question(contents == "Mummies or Werewolves?" && answer == "Werewolves");
+	then
+		recommend(frame, "WOLF TEAM");
+end
+
+rule "Sh7"
+	when
+		Question(contents == "Mummies or Werewolves?" && answer == "Mummies");
+	then
+		recommend(frame, "MISSION AGAINST TERROR");
+end
+
+rule "Sh8"
+	when
+		Question(contents == "What means more to you, enormous large scale battles,\nor the ability to take precise control of your ship's every move?" && answer == "Big battles");
+	then
+		recommend(frame, "ACE ONLINE");
+end
+
+rule "Sh9"
+	when
+		Question(contents == "Who would you ratger fight, yhe military or monsters?" && answer == "Military");
+	then
+		String question = "Do you see your self as World War II vintage tank, or deadly cartoon soldier?";
+		String [] answers = {"Tank", "Soldier"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "Sh10"
+	when
+		Question(contents == "Do you see your self as World War II vintage tank, or deadly cartoon soldier?" && answer == "Tank");
+	then
+		recommend(frame, "WORLD OF TANKS");
+end
+
+rule "Sh11"
+	when
+		Question(contents == "Do you see your self as World War II vintage tank, or deadly cartoon soldier?" && answer == "Soldier");
+	then
+		recommend(frame, "LOST SAGA");
+end
+
+//RPGS tree
+rule "R1"
+	when
+		Question(contents == "What type of game are you looking for? Do you want to hone the ultimate warrior, or build a mighty nation?" && answer == "RPGS");
+	then
+		String question = "WHAT GENRE WOULD YOU LIKE? Swords and sorcery, starships, superheroes or something else?";
+		String [] answers = {"Fantasy", "Science Fiction", "Superheroes", "Something completely different"};
+		Question answer = ask(frame, question, answers, 4);
+		insert(answer);
+end
+
+rule "R2"
+	when
+		Question(contents == "WHAT GENRE WOULD YOU LIKE? Swords and sorcery, starships, superheroes or something else?" && answer == "Fantasy");
+	then
+		String question = "Have you played World of Warcraft?";
+		String [] answers = {"Yes. Been there, done that", "No?! 10 milion players agree: this is the place to start"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R3"
+	when
+		Question(contents == "Have you played World of Warcraft?" && answer == "No?! 10 milion players agree: this is the place to start");
+	then
+		recommend(frame, "WORLD OF WARCRAFT");
+end
+
+rule "R4"
+	when
+		Question(contents == "Have you played World of Warcraft?" && answer == "Yes. Been there, done that");
+	then
+		String question = "Are you looking for a game you can casually pick up now and then, or something more involved?";
+		String [] answers = {"Casual", "Involved"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R5"
+	when
+		Question(contents == "Are you looking for a game you can casually pick up now and then, or something more involved?" && answer == "Casual");
+	then
+		String question = "But would you still like the option for more intense play when you have the time for it?";
+		String [] answers = {"Yes", "No thanks"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R6"
+	when
+		Question(contents == "But would you still like the option for more intense play when you have the time for it?" && answer == "Yes");
+	then
+		recommend(frame, "SHAIYA");
+end
+
+rule "R7"
+	when
+		Question(contents == "But would you still like the option for more intense play when you have the time for it?" && answer == "No thanks");
+	then
+		String question = "Would you like more social features for group play, or a challenging game world to satisfy the solo player?";
+		String [] answers = {"Solo", "Social"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R8"
+	when
+		Question(contents == "Would you like more social features for group play, or a challenging game world to satisfy the solo player?" && answer == "Solo");
+	then
+		recommend(frame, "ADVENTURE QUEST WORLDS");
+end
+
+rule "R9"
+	when
+		Question(contents == "Would you like more social features for group play, or a challenging game world to satisfy the solo player?" && answer == "Social");
+	then
+		recommend(frame, "DRAGON FABLE");
+end
+
+rule "R10"
+	when
+		Question(contents == "Are you looking for a game you can casually pick up now and then, or something more involved?" && answer == "Involved");
+	then
+		String question = "How many digits are in your age?";
+		String [] answers = {"1 or \"not sure\"", "2 or more"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R11"
+	when
+		Question(contents == "How many digits are in your age?" && answer == "1 or \"not sure\"");
+	then
+		recommend(frame, "WIZARD 101");
+end
+
+rule "R12"
+	when
+		Question(contents == "How many digits are in your age?" && answer == "2 or more");
+	then
+		String question = "Do you like cute, wideyed Anime characters?";
+		String [] answers = {"No", "Yes"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R13"
+	when
+		Question(contents == "Do you like cute, wideyed Anime characters?" && answer == "No");
+	then
+		String question = "Do you enjoy large scale battles with dozens or hundreds of players fighting each other?";
+		String [] answers = {"Yes", "Not especially"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R14"
+	when
+		Question(contents == "Do you enjoy large scale battles with dozens or hundreds of players fighting each other?" && answer == "Yes");
+	then
+		String question = "Do you like the \"Lord of the Rings\" trilogy?";
+		String [] answers = {"Yes", "Meh"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R15"
+	when
+		Question(contents == "Do you like the \"Lord of the Rings\" trilogy?" && answer == "Yes");
+	then
+		recommend(frame, "LORD OF THE RINGS ONLINE");
+end
+
+rule "R16"
+	when
+		Question(contents == "Do you like the \"Lord of the Rings\" trilogy?" && answer == "Meh");
+	then
+		String question = "Do you prefer a game with strong quests or awesome pets?";
+		String [] answers = {"Quests", "Pets"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R17"
+	when
+		Question(contents == "Do you prefer a game with strong quests or awesome pets?" && answer == "Quests");
+	then
+		recommend(frame, "4STORY");
+end
+
+rule "R18"
+	when
+		Question(contents == "Do you prefer a game with strong quests or awesome pets?" && answer == "Pets");
+	then
+		recommend(frame, "AIKA");
+end
+
+rule "R19"
+	when
+		Question(contents == "Do you enjoy large scale battles with dozens or hundreds of players fighting each other?" && answer == "Not especially");
+	then
+		String question = "Are you looking for a game with an emphasis on player-vs-player (PvP) fighting?";
+		String [] answers = {"Yes", "No"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R20"
+	when
+		Question(contents == "Are you looking for a game with an emphasis on player-vs-player (PvP) fighting?" && answer == "Yes");
+	then
+		String question = "Would you like to find a game as close as possible to World of Warcraft?";
+		String [] answers = {"Yes", "No"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R21"
+	when
+		Question(contents == "Would you like to find a game as close as possible to World of Warcraft?" && answer == "Yes");
+	then
+		recommend(frame, "RUNES OF MAGIC");
+end
+
+rule "R22"
+	when
+		Question(contents == "Are you looking for a game with an emphasis on player-vs-player (PvP) fighting?" && answer == "No");
+	then
+		String question = "Are you looking for something based on the grand-daddy of RPGs, pen-and-paper Dungeons and Dragons?\n Or a more complex, involved combat system?";
+		String [] answers = {"I want to perfect the art of crushing my enemies", "I love D&D"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R23"
+	when
+		Question(contents == "Are you looking for something based on the grand-daddy of RPGs, pen-and-paper Dungeons and Dragons?\n Or a more complex, involved combat system?" && answer == "I want to perfect the art of crushing my enemies");
+	then
+		recommend(frame, "AGE OF CONAN");
+end
+
+rule "R24"
+	when
+		Question(contents == "Are you looking for something based on the grand-daddy of RPGs, pen-and-paper Dungeons and Dragons?\n Or a more complex, involved combat system?" && answer == "I love D&D");
+	then
+		String question = "Do you want an old-school D&D game with low system requirements, or a cutting edge 3D D&D experience?";
+		String [] answers = {"Old-school", "Cutting edge"};
+		Question answer = ask(frame, question, answers, 2);
+		insert(answer);
+end
+
+rule "R25"
+	when
+		Question(contents == "Do you want an old-school D&D game with low system requirements, or a cutting edge 3D D&D experience?" && answer == "Old-school");
+	then
+		recommend(frame, "DARK SWORDS");
+end
+
+rule "R26"
+	when
+		Question(contents == "Do you want an old-school D&D game with low system requirements, or a cutting edge 3D D&D experience?" && answer == "Cutting edge");
+	then
+		recommend(frame, "DUNGEONS AND DRAGONS ONLINE");
+end
+
+rule "R27"
+	when
+		Question(contents == "Would you like to find a game as close as possible to World of Warcraft?" && answer == "No");
+	then
+		String question = "Which of these distinctive features appeals to you most?";
+		String [] answers = {"Auto-pilot mode to grind for you", "The chance to become a god", "Hack-n-slash dungeon diving, like Diablo"};
+		Question answer = ask(frame, question, answers, 3);
+		insert(answer);
+end
+
+rule "R28"
+	when
+		Question(contents == "Which of these distinctive features appeals to you most?" && answer == "Auto-pilot mode to grind for you");
+	then
+		recommend(frame, "CRYSTAL SAGA");
+end
+
+rule "R29"
+	when
+		Question(contents == "Which of these distinctive features appeals to you most?" && answer == "The chance to become a god");
+	then
+		recommend(frame, "FORSAKEN WORLD");
+end
+
+rule "R30"
+	when
+		Question(contents == "Which of these distinctive features appeals to you most?" && answer == "Hack-n-slash dungeon diving, like Diablo");
+	then
+		recommend(frame, "DRAKENSANG");
+end
+
+rule "Adi1"
+	when
+		Question(contents == "WHAT GENRE WOULD YOU LIKE? Swords and sorcery, starships, superheroes or something else?" && answer == "Science Fiction" );
+	then
+		String question = "Would you like to go on ground-based missions or stick to your spaceship?";
+		String [] answers = {"Beam me down, Scotty.","I'ill stick with outer space."};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+
+rule "Adi2"
+	when
+		Question(contents == "Would you like to go on ground-based missions or stick to your spaceship?" && answer == "Beam me down, Scotty." );
+	then
+		recommend(frame,"STAR TREK ONLINE");
+end
+
+rule "Adi3"
+	when
+		Question(contents == "Would you like to go on ground-based missions or stick to your spaceship?" && answer == "I'll stick with outer space." );
+	then
+		String question = "Would you like a game that's easy to pick up, or one that takes some getting used to but is huge, epic and involved?";
+		String [] answers = {"Easy to get the hang of.", "The more epic, the better."};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "Adi4"
+	when
+		Question(contents == "Would you like a game that's easy to pick up, or one that takes some getting used to but is huge, epic and involved?" && answer == "Easy to get the hang of." );
+	then
+		recommend(frame,"DARK ORBIT");
+end
+
+rule "Adi5"
+	when
+		Question(contents == "Would you like a game that's easy to pick up, or one that takes some getting used to but is huge, epic and involved?" && answer == "The more epic, the better." );
+	then
+		recommend(frame,"EVE ONLINE");
+end
+
+rule "Adi6"
+	when
+		Question(contents == "WHAT GENRE WOULD YOU LIKE? Swords and sorcery, starships, superheroes or something else?" && answer == "Superheroes" );
+	then
+		String question = "Are you old enough to remember when The Incredibles came out?";
+		String [] answers = {"Yes","No"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "Adi7"
+	when
+		Question(contents == "Are you old enough to remember when The Incredibles came out?" && answer == "Yes" );
+	then
+		recommend(frame,"DC UNIVERSE ONLINE");
+end
+
+rule "Adi8"
+	when
+		Question(contents == "Are you old enough to remember when The Incredibles came out?" && answer == "No" );
+	then
+		recommend(frame,"SUPERHERO SQUAD ONLINE");
+end
+
+rule "Adi9"
+	when
+		Question(contents == "WHAT GENRE WOULD YOU LIKE? Swords and sorcery, starships, superheroes or something else?" && answer == "Something completely different" );
+	then
+		String question = "Is being a vampire-hunting werewolf strange enough for you?";
+		String [] answers = {"Yes","No"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "Adi10"
+	when
+		Question(contents == "Are you old enough to remember when The Incredibles came out?" && answer == "No" );
+	then
+		recommend(frame,"GLITCH");
+end
+
+rule "Adi11"
+	when
+		Question(contents == "Are you old enough to remember when The Incredibles came out?" && answer == "Yes" );
+	then
+		recommend(frame,"BITEFIGHT");
+end
+
+//strategy rules
+rule "St1"
+	when
+		Question(contents == "What type of game are you looking for? Do you want to hone the ultimate warrior, or build a mighty nation?" && answer == "STRATEGY" );
+	then
+		String question = "Would you like your\nwars and alliances in a fantasy setting,\nthe real world, or 'the family'?";
+		String [] answers = {"Fantasy", "Historical", "Mafia"};
+		Question answer = ask(frame,question,answers,3);
+		insert(answer);
+end
+
+
+rule "St2"
+	when
+		Question(contents == "Would you like your\nwars and alliances in a fantasy setting,\nthe real world, or 'the family'?" && answer == "Fantasy");
+	then
+		String question = "Would you like a game with RPG elements\nsuch as dungeon exploration, or do you\nwant to stick with straight-up strategy?";
+		String [] answers = {"RPG elements.", "Just strategy, please."};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "St3"
+	when
+		Question(contents == "Would you like a game with RPG elements\nsuch as dungeon exploration, or do you\nwant to stick with straight-up strategy?" && answer == "RPG elements.");
+	then
+		recommend(frame, "CALL OF GODS");
+end
+
+rule "St4"
+	when
+		Question(contents == "Would you like a game with RPG elements\nsuch as dungeon exploration, or do you\nwant to stick with straight-up strategy?" && answer == "Just strategy, please.");
+	then
+		recommend(frame, "GREPOLIS");
+end
+
+rule "St5"
+	when
+		Question(contents == "Would you like your\nwars and alliances in a fantasy setting,\nthe real world, or 'the family'?" && answer == "Historical");
+	then
+		String question = "Would you like a casual game that you can put\na few minutes into now and then, or a more\ninvolved game that might become an obsession?";
+		String [] answers = {"Involved", "Casual"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "St6"
+	when
+		Question(contents == "Would you like a casual game that you can put\na few minutes into now and then, or a more\ninvolved game that might become an obsession?" && answer == "Involved");
+	then
+		String question = "Do you want a game that can be played solo, or\none that puts an emphasis on forming alliances?";
+		String [] answers = {"It's all me.","You can't conqueror the world without friends."};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "St7"
+	when 
+		Question(contents == "Do you want a game that can be played solo, or\none that puts an emphasis on forming alliances?" && answer == "It's all me.");
+	then
+		recommend(frame, "CASTLE EMPIRE");
+end
+
+rule "St8"
+	when 
+		Question(contents == "Do you want a game that can be played solo, or\none that puts an emphasis on forming alliances?" && answer == "You can't conqueror the world without friends.");
+	then
+		recommend(frame, "TRAVIAN");
+end
+
+rule "St9"
+	when
+		Question(contents == "Would you like a casual game that you can put\na few minutes into now and then, or a more\ninvolved game that might become an obsession?" && answer == "Casual");
+	then
+		String question = "Do you prefer higher level strategic control\nof a battle, or real time tactical control over your troops?";
+		String [] answers = {"Real time tactics","Strategic control"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);	
+end
+
+rule "St10"
+	when
+		Question(contents == "Do you prefer higher level strategic control\nof a battle, or real time tactical control over your troops?" && answer == "Real time tactics");
+	then
+		recommend(frame, "1100 AD");
+end
+
+
+rule "St11"
+	when
+		Question(contents == "Do you prefer higher level strategic control\nof a battle, or real time tactical control over your troops?" && answer == "Strategic control");
+	then
+		recommend(frame, "TRIBAL WARS");
+end
+
+rule "St12"
+	when
+		Question(contents == "Would you like your\nwars and alliances in a fantasy setting,\nthe real world, or 'the family'?" && answer == "Mafia");
+	then
+		recommend(frame, "GODFATHER: FIVE FAMILIES");
+end
+
+
+//virtual worlds rules
+
+rule "Vw1"
+	when
+		Question(contents == "What type of game are you looking for? Do you want to hone the ultimate warrior, or build a mighty nation?" && answer == "VIRTUAL WORLDS" );
+	then
+		String question = "Would you like a world\nwith games built in, or would you like\na completely freeform experience?";
+		String [] answers = {"Built in games.","An open-ended world"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "Vw2"
+	when
+		Question(contents == "Would you like a world\nwith games built in, or would you like\na completely freeform experience?" && answer == "Built in games." );
+	then
+		String question = "Which do you prefer to build with: blocks or legos?";
+		String [] answers = {"Blocks","Legos"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+
+rule "Vw3"
+	when
+		Question(contents == "Which do you prefer to build with: blocks or legos?" && answer == "Blocks" );
+	then
+		recommend(frame,"MINECRAFT CLASSIC");
+end
+
+
+rule "Vw4"
+	when
+		Question(contents == "Which do you prefer to build with: blocks or legos?" && answer == "Legos" );
+	then
+		recommend(frame,"ROBLOX");
+end
+
+rule "Vw5"
+	when
+		Question(contents == "Would you like a world\nwith games built in, or would you like\na completely freeform experience?" && answer == "An open-ended world" );
+	then
+		String question = "Are you looking mostly to chat and make new\nfriends, or do you want to create things too?";
+		String [] answers = {"Chat", "Create"};
+		Question answer = ask(frame,question,answers,2);
+		insert(answer);
+end
+
+rule "Vw6"
+	when
+		Question(contents == "Are you looking mostly to chat and make new\nfriends, or do you want to create things too?" && answer == "Chat" );
+	then
+		recommend(frame,"IMVU");
+end
+
+
+rule "Vw7"
+	when
+		Question(contents == "Are you looking mostly to chat and make new\nfriends, or do you want to create things too?" && answer == "Create" );
+	then
+		recommend(frame,"SECOND LIFE");
+end
+
+
+function void recommend(JFrame frame, String text) {
+    final JPanel panel = new JPanel();
+    panel.add(new JLabel(text));
+    JOptionPane.showMessageDialog(frame, panel);
+}
+
+function Question ask(JFrame frame, String questionText, String answers[], int n) {
+	int choice = JOptionPane.showOptionDialog(frame, questionText, "FIND THE RIGHT ONLINE GAME FOR YOU!", JOptionPane.YES_NO_CANCEL_OPTION,
+	JOptionPane.QUESTION_MESSAGE, null, answers, answers[n-1]);
+	return new Question(questionText, answers[choice]); 
+}
+
